@@ -9,7 +9,17 @@ import org.thrsky.spring.boot.login.model.UserModel;
  */
 public interface UserService {
 
+    /**
+     * 用户注册
+     * @param userModel userModel
+     * @return
+     */
     boolean register(UserModel userModel);
 
+    /**
+     * 用户登录
+     * @param userModel userModel
+     * @return
+     */
     boolean login(UserModel userModel);
 }
