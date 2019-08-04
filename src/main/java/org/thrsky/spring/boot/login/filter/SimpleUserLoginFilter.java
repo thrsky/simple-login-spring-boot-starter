@@ -20,14 +20,15 @@ public class SimpleUserLoginFilter implements Filter {
 
     private Set<String> notFilterUrlSet;
 
+    private PropertiesHolder propertiesHolder;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        notFilterUrlSet = new HashSet<>(Arrays.asList(PropertiesHolder.getSimpleLoginProperties().getNotFilterUrls().split(",")));
+        notFilterUrlSet = new HashSet<>(Arrays.asList(propertiesHolder.getSimpleLoginProperties().getNotFilterUrls().split(",")));
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String urlPath = request.getRequestURI();
         if (notFilterUrlSet.contains(urlPath)) {

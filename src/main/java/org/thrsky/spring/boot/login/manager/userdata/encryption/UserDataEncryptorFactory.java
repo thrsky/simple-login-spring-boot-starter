@@ -9,14 +9,14 @@ import org.thrsky.spring.boot.login.properties.PropertiesHolder;
  * @author thrsky
  * @date 2019/8/2 10:15
  **/
-public class UserDataEncryptorFactory {
+public class UserDataEncryptorFactory extends PropertiesHolder {
 
-    private static String encryptorType;
+    private static String encryptorType = "md5";
 
     private static Md5Encryptor md5Encryptor = new Md5Encryptor();
 
     static {
-        encryptorType = PropertiesHolder.getSimpleLoginProperties().getPasswdEncryptorType();
+        //todo
         if (StringUtils.isBlank(encryptorType)) {
             encryptorType = "md5";
         }
