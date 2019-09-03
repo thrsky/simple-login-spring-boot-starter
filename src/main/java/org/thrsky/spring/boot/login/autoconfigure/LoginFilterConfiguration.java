@@ -24,6 +24,7 @@ public class LoginFilterConfiguration {
     public FilterRegistrationBean<SimpleUserLoginFilter> webFilterRegistrationBean(SimpleLoginProperties simpleLoginProperties) {
         FilterRegistrationBean<SimpleUserLoginFilter> registrationBean = new FilterRegistrationBean<>();
         SimpleUserLoginFilter filter = new SimpleUserLoginFilter();
+        filter.setProperties(simpleLoginProperties);
         registrationBean.setFilter(filter);
         LogUtils.info(log, LOG_PREFIX, "register bean", "simpleUserLoginFilter");
         return registrationBean;
