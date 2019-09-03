@@ -19,4 +19,11 @@ public class UserModel {
     private String userName;
 
     private String userPasswd;
+
+    public static UserModel build(String userName, String userPasswd) {
+        return UserModel.builder()
+                .userName(userName)
+                .userPasswd(userPasswd)
+                .build();
+    }
 }

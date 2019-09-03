@@ -12,32 +12,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class SimpleLoginProperties {
 
+    private String username;
+
+    private String password;
+
     private String type;
 
     private String passwdEncryptorType;
 
     private String notFilterUrls;
-
-    private WebStatFilter webStatFilter;
-
-    @Data
-    public static class StatViewServlet {
-        private boolean enabled;
-        private String  urlPattern;
-        private String  adminUsername;
-        private String  adminPassword;
-    }
-
-    @Data
-    public static class WebStatFilter {
-        private boolean enabled;
-        private String  urlPattern;
-        private String  exclusions;
-        private String  sessionStatMaxCount;
-        private String  sessionStatEnable;
-        private String  principalSessionName;
-        private String  principalCookieName;
-        private String  profileEnable;
-
-    }
 }
