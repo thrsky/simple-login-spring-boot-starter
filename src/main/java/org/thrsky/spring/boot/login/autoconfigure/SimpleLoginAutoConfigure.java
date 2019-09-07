@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Import;
 import org.thrsky.spring.boot.login.manager.userdata.encryption.UserDataEncryptorFactory;
 import org.thrsky.spring.boot.login.properties.EncryConfig;
 import org.thrsky.spring.boot.login.properties.SimpleLoginProperties;
+import org.thrsky.spring.boot.login.properties.UserDataConfig;
 
 import javax.annotation.PostConstruct;
 
@@ -18,7 +19,7 @@ import javax.annotation.PostConstruct;
  */
 @Configuration
 @ConditionalOnClass({SimpleLoginProperties.class})
-@EnableConfigurationProperties({SimpleLoginProperties.class, EncryConfig.class})
+@EnableConfigurationProperties({SimpleLoginProperties.class, EncryConfig.class, UserDataConfig.class})
 @Import({LoginFilterConfiguration.class, StatViewServletConfiguration.class})
 public class SimpleLoginAutoConfigure {
 
