@@ -87,7 +87,17 @@ public abstract class BaseResourceServlet extends HttpServlet {
     }
 
     private void initEnv() {
-        //todo
+        String paramUserName = getInitParameter(PARAM_NAME_USERNAME);
+        if (!StringUtils.isEmpty(paramUserName)) {
+            this.username = paramUserName;
+        }
+
+        String paramPassword = getInitParameter(PARAM_NAME_PASSWORD);
+        if (!StringUtils.isEmpty(paramPassword)) {
+            this.password = paramPassword;
+        }
+
+        userService = UserService.getInstance();
     }
 
     @Override
@@ -115,8 +125,7 @@ public abstract class BaseResourceServlet extends HttpServlet {
             }
             return;
         }
-        if (isRequireAuth()
-                && !containsUser(request)
+        if (!containsUser(request)
                 && !checkLoginParam(request)
                 && !("/login.html".equals(path) || path.startsWith("/css") || path.startsWith("/js") || path.startsWith("/img"))) {
             if (contextPath.equals("") || contextPath.equals("/")) {

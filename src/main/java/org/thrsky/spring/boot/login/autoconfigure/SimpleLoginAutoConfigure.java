@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
 @Configuration
 @ConditionalOnClass({SimpleLoginProperties.class})
 @EnableConfigurationProperties({SimpleLoginProperties.class, EncryConfig.class})
-@Import({LoginFilterConfiguration.class})
+@Import({LoginFilterConfiguration.class, StatViewServletConfiguration.class})
 public class SimpleLoginAutoConfigure {
 
     @Autowired

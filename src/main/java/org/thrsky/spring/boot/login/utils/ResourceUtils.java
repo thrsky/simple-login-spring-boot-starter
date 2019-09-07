@@ -1,6 +1,8 @@
 package org.thrsky.spring.boot.login.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 
 import java.io.*;
 
@@ -13,6 +15,8 @@ import java.io.*;
 public class ResourceUtils {
 
     public final static int DEFAULT_BUFFER_SIZE = 1024 * 4;
+
+    private final static DefaultResourceLoader DEFAULT_RESOURCE_LOADER = new DefaultResourceLoader();
 
     private ResourceUtils() {
         //
@@ -52,13 +56,17 @@ public class ResourceUtils {
             if (in == null) {
                 in = ResourceUtils.class.getResourceAsStream(resource);
             }
-
+            if (in == null) {
+                Resource rs = DEFAULT_RESOURCE_LOADER.getResource("classpath:/" + resource);
+                if (rs.exists()) {
+                    in = rs.getInputStream();
+                }
+            }
             if (in == null) {
                 return null;
             }
 
-            String text = read(in);
-            return text;
+            return read(in);
         } finally {
             close(in);
         }
@@ -101,11 +109,10 @@ public class ResourceUtils {
         if (x == null) {
             return;
         }
-
         try {
             x.close();
         } catch (Exception e) {
-            log.debug("close error", e);
+            log.error("resource close error", e);
         }
     }
 }
