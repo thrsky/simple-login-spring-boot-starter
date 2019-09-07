@@ -1,14 +1,14 @@
 package org.thrsky.spring.boot.login.filter;
 
-import org.thrsky.spring.boot.login.properties.PropertiesHolder;
+import lombok.Setter;
+import org.thrsky.spring.boot.login.properties.SimpleLoginProperties;
+import org.thrsky.spring.boot.login.utils.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,13 +18,14 @@ import java.util.Set;
 @WebFilter(filterName = "loginFilter", urlPatterns = "/*")
 public class SimpleUserLoginFilter implements Filter {
 
-    private Set<String> notFilterUrlSet;
+    @Setter
+    private SimpleLoginProperties properties;
 
-    private PropertiesHolder propertiesHolder;
+    private Set<String> notFilterUrlSet;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        notFilterUrlSet = new HashSet<>(Arrays.asList(propertiesHolder.getSimpleLoginProperties().getNotFilterUrls().split(",")));
+        notFilterUrlSet = StringUtils.split2Set(properties.getNotFilterUrls(), ",");
     }
 
     @Override
@@ -34,13 +35,20 @@ public class SimpleUserLoginFilter implements Filter {
         if (notFilterUrlSet.contains(urlPath)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
+            //跳到登录页
             HttpServletResponse response = (HttpServletResponse) servletResponse;
-            response.sendRedirect(request.getRequestURI() + "/index");
+            String context = request.getContextPath();
+            if (StringUtils.equalsAny(context, "", "/")) {
+                response.sendRedirect("/login.html");
+            } else {
+                response.sendRedirect("login.html");
+            }
         }
     }
 
     @Override
     public void destroy() {
-
+        notFilterUrlSet = null;
+        properties = null;
     }
 }
