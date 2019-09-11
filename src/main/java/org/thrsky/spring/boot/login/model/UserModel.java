@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserModel {
 
+    private Long userId;
+
     private String userName;
 
     private String userPasswd;

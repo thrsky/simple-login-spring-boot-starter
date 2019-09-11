@@ -39,7 +39,7 @@ public class UserService {
      * @param userModel userModel
      * @return
      */
-    public boolean login(UserModel userModel) {
+    public Boolean login(UserModel userModel) {
         return userAdapter.login(userModel);
     }
 }
