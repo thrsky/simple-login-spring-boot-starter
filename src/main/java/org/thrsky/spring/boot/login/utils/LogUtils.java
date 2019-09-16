@@ -24,6 +24,22 @@ public class LogUtils {
         logger.info(buildLogString(throwable, msg));
     }
 
+    public static void error(Logger logger, Throwable throwable, String... msg) {
+        logger.error(buildLogString(throwable, msg));
+    }
+
+    public static void error(Logger logger, String... msg) {
+        logger.error(buildLogString(null, msg));
+    }
+
+    public static void debug(Logger logger, Throwable throwable, String... msg) {
+        logger.debug(buildLogString(throwable, msg));
+    }
+
+    public static void debug(Logger logger, String... msg) {
+        logger.debug(buildLogString(null, msg));
+    }
+
     private static String buildLogString(Throwable throwable, String... msg) {
         StringBuilder sb = new StringBuilder();
         if (throwable != null) {
