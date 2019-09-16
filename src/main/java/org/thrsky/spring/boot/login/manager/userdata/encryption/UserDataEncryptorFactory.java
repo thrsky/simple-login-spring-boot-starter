@@ -16,7 +16,7 @@ public class UserDataEncryptorFactory {
 
     private static final String DEFAULT_TYPE = MD5;
 
-    private static final Md5Encryptor MD5_ENCRYPTOR = new Md5Encryptor();
+    private static final Md5Encryptor md5Encryptor = new Md5Encryptor();
 
     @Setter
     private static EncryConfig encryConfig;
@@ -29,9 +29,9 @@ public class UserDataEncryptorFactory {
         type = type.toLowerCase();
         switch (type) {
             case MD5:
-                return MD5_ENCRYPTOR;
+                return md5Encryptor;
             default:
-                return MD5_ENCRYPTOR;
+                return md5Encryptor;
         }
     }
 }

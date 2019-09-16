@@ -4,6 +4,8 @@ import org.thrsky.spring.boot.login.model.UserModel;
 import org.thrsky.spring.boot.login.service.user.UserAdapter;
 import org.thrsky.spring.boot.login.service.user.UserAdapterFactory;
 
+import java.util.Objects;
+
 /**
  * @author thrsky
  * @version 1.0.0
@@ -30,6 +32,7 @@ public class UserService {
      * @return
      */
     public UserModel register(UserModel userModel) {
+        Objects.requireNonNull(userAdapter);
         return userAdapter.register(userModel);
     }
 
@@ -40,6 +43,7 @@ public class UserService {
      * @return
      */
     public Boolean login(UserModel userModel) {
+        Objects.requireNonNull(userAdapter);
         return userAdapter.login(userModel);
     }
 }
