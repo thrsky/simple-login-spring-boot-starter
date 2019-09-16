@@ -12,6 +12,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class UserDataConfig {
 
+    private String type;
+
     private String location;
 
     public static class MysqlConfig {
