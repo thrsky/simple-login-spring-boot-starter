@@ -1,6 +1,8 @@
 package org.thrsky.spring.boot.login.service.user;
 
 import org.thrsky.spring.boot.login.exception.BaseBizException;
+import org.thrsky.spring.boot.login.model.RestApiResult;
+import org.thrsky.spring.boot.login.model.Result;
 import org.thrsky.spring.boot.login.model.UserModel;
 
 /**
@@ -16,7 +18,7 @@ public interface UserAdapter {
      * @param userModel userModel
      * @return true:登录成功 false:登录失败
      */
-    boolean login(UserModel userModel) throws BaseBizException;
+    RestApiResult login(UserModel userModel) throws BaseBizException;
 
     /**
      * 注册
@@ -24,5 +26,7 @@ public interface UserAdapter {
      * @param userModel userModel
      * @return userModel
      */
-    UserModel register(UserModel userModel) throws BaseBizException;
+    RestApiResult register(UserModel userModel) throws BaseBizException;
+
+
 }
