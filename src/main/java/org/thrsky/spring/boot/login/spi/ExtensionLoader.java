@@ -25,7 +25,7 @@ public class ExtensionLoader {
      */
     public static <T> T load(Class<T> tClass) {
         if (tClass == null) {
-            LogUtils.error(log, LOG_PRE, "load class is null");
+            LogUtils.error(log, LOG_PRE, "load class type is null");
             return null;
         }
         ServiceLoader<T> loader = ServiceLoader.load(tClass);
