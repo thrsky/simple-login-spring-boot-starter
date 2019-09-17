@@ -23,6 +23,8 @@ public class UserModel {
 
     private String userPasswd;
 
+    private String encryType;
+
     public static UserModel build(String userName, String userPasswd) {
         return UserModel.builder()
                 .userName(userName)
