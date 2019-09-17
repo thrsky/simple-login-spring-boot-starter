@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.thrsky.spring.boot.login.utils.AssertUtils;
 
 /**
  * @author thrsky
@@ -27,5 +28,10 @@ public class UserModel {
                 .userName(userName)
                 .userPasswd(userPasswd)
                 .build();
+    }
+
+    public void check() {
+        AssertUtils.notBlank(this.userName, "用户名不能为空");
+        AssertUtils.notBlank(this.userPasswd, "密码不能为空");
     }
 }

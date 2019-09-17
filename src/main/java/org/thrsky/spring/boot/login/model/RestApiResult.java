@@ -26,4 +26,11 @@ public class RestApiResult<T> extends Result<T> {
         restApiResult.setSuccess(true);
         return restApiResult;
     }
+
+    public static <T> RestApiResult<T> fail(String errorMsg) {
+        RestApiResult<T> restApiResult = new RestApiResult<>();
+        restApiResult.setErrorMsg(errorMsg);
+        restApiResult.setSuccess(false);
+        return restApiResult;
+    }
 }
