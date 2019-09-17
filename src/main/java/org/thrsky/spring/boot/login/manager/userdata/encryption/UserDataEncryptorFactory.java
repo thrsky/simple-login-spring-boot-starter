@@ -27,11 +27,19 @@ public class UserDataEncryptorFactory {
             type = DEFAULT_TYPE;
         }
         type = type.toLowerCase();
+        return get(type);
+    }
+
+    public static IEncryptor get(String type) {
         switch (type) {
             case MD5:
                 return md5Encryptor;
             default:
                 return md5Encryptor;
         }
+    }
+
+    public static String getType() {
+        return encryConfig.getType();
     }
 }
