@@ -6,7 +6,9 @@ import org.thrsky.spring.boot.login.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author thrsky
@@ -20,6 +22,8 @@ public class ExtensionLoader {
 
     private static final String SYSTEM_SERVICE_PATH = "org.thrsky.spring.boot.login";
 
+    private static final Map<Class<?>, Object> servicesMap = new ConcurrentHashMap<>();
+
     /**
      * 加载用户自定义的Service
      */
@@ -28,12 +32,22 @@ public class ExtensionLoader {
             LogUtils.error(log, LOG_PRE, "load class type is null");
             return null;
         }
-        ServiceLoader<T> loader = ServiceLoader.load(tClass);
-        List<T> classes = new ArrayList<>();
-        for (T t : loader) {
-            classes.add(t);
+        T service = (T) servicesMap.get(tClass);
+        if (service == null) {
+            synchronized (servicesMap) {
+                ServiceLoader<T> loader = ServiceLoader.load(tClass);
+                List<T> classes = new ArrayList<>();
+                for (T t : loader) {
+                    classes.add(t);
+                }
+                service = findUserDefineService(classes);
+                if (service == null) {
+                    LogUtils.error(log, LOG_PRE, "not found ");
+                }
+                servicesMap.put(tClass, service);
+            }
         }
-        return findUserDefineService(classes);
+        return service;
     }
 
     /**
