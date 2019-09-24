@@ -1,8 +1,10 @@
-package org.thrsky.spring.boot.login.service;
+package org.thrsky.spring.boot.login.service.user;
 
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
+import org.thrsky.spring.boot.login.model.RestApiResult;
 import org.thrsky.spring.boot.login.model.UserModel;
-import org.thrsky.spring.boot.login.service.user.UserAdapter;
-import org.thrsky.spring.boot.login.service.user.UserAdapterFactory;
+import org.thrsky.spring.boot.login.utils.LogUtils;
 
 import java.util.Objects;
 
@@ -11,9 +13,10 @@ import java.util.Objects;
  * @version 1.0.0
  * @date Created in 20:12 2019-08-01
  */
+@Slf4j
 public class UserService {
 
-    private static UserService instance = new UserService();
+    private static final UserService instance = new UserService();
 
     private static UserAdapter userAdapter = UserAdapterFactory.get();
 
@@ -31,8 +34,9 @@ public class UserService {
      * @param userModel userModel
      * @return
      */
-    public UserModel register(UserModel userModel) {
+    public RestApiResult register(UserModel userModel) {
         Objects.requireNonNull(userAdapter);
+        LogUtils.info(log, "userService.register", JSON.toJSONString(userModel));
         return userAdapter.register(userModel);
     }
 
@@ -42,8 +46,9 @@ public class UserService {
      * @param userModel userModel
      * @return
      */
-    public Boolean login(UserModel userModel) {
+    public RestApiResult login(UserModel userModel) {
         Objects.requireNonNull(userAdapter);
+        LogUtils.info(log, "userService.login", JSON.toJSONString(userModel));
         return userAdapter.login(userModel);
     }
 }
