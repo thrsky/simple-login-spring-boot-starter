@@ -2,7 +2,7 @@ package org.thrsky.spring.boot.login.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.thrsky.spring.boot.login.model.UserModel;
-import org.thrsky.spring.boot.login.service.UserService;
+import org.thrsky.spring.boot.login.service.user.UserService;
 import org.thrsky.spring.boot.login.utils.ResourceUtils;
 import org.thrsky.spring.boot.login.utils.StringUtils;
 
@@ -117,7 +117,7 @@ public abstract class BaseResourceServlet extends HttpServlet {
         if ("/submitLogin".equals(path)) {
             String usernameParam = request.getParameter(PARAM_NAME_USERNAME);
             String passwordParam = request.getParameter(PARAM_NAME_PASSWORD);
-            if (userService.login(UserModel.build(usernameParam, passwordParam))) {
+            if (userService.login(UserModel.build(usernameParam, passwordParam)).isSuccess()) {
                 request.getSession().setAttribute(SESSION_USER_KEY, usernameParam);
                 response.getWriter().println("success");
             } else {

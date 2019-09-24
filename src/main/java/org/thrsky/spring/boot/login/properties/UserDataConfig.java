@@ -22,6 +22,7 @@ public class UserDataConfig {
         private String password;
     }
 
+    @Data
     public static class LocalFileConfig {
         private String filepath;
     }
